@@ -4,30 +4,37 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectedProduct,
-  
+  removeSelectedProduct
+
 } from "../redux/actions/productsActions";
 const ProductDetails = () => {
   const { productId } = useParams();
   let product = useSelector((state) => state.product);
   const { image, title, price, category, description } = product;
   const dispatch = useDispatch();
-  const fetchProductDetail = async (id) => {
+
+  const fetchProductDetail = async () => {
     const response = await axios
-      .get(`https://fakestoreapi.com/products/${id}`)
+      .get(`https://fakestoreapi.com/products/${productId}`)
       .catch((err) => {
         console.log("Err: ", err);
       });
     dispatch(selectedProduct(response.data));
-  };
-
-  useEffect(() => {
-    if (productId && productId !== "") fetchProductDetail();
    
+  };
+  
+  useEffect(() => {
+    fetchProductDetail()
+    return () => {
+        dispatch(removeSelectedProduct())
+    }
   }, [productId]);
   return (
     <div className="ui grid container">
-      {Object.keys(product).length === 0 ? (
-        <div>...Loading</div>
+        {Object.keys(product).length === 0 ? (
+        <div>
+            <h1>Loading...</h1>
+        </div>
       ) : (
         <div className="ui placeholder segment">
           <div className="ui two column stackable center aligned grid">
@@ -53,7 +60,7 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
-      )}
+    )}
     </div>
   );
 };
