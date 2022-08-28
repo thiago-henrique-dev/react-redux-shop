@@ -9,13 +9,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-          <Header/>
+        <Header />
         <Routes>
-          <Route path="/" exact component={<ProductListing />}>
+          <Route exact path="/" element={<ProductListing/>}>
             <Route
-              path="/product/:productId"
-              exact
-              component={<ProductDetail />}
+              exact path="/product/:productId"
+              element={<ProductDetail/>}
             />
             <Route>404</Route>
           </Route>
