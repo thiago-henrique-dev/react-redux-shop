@@ -1,4 +1,16 @@
 import { ActionTypes } from "../constants/action-types";
+import fakestoreapi from "../../api/fakeStoreApi";
+
+
+export const fetchProducts = () => async (dispatch) => {
+  const response = await fakestoreapi.get("/products");
+  dispatch({ type: ActionTypes.FETCH_PRODUCTS, payload: response.data });
+};
+
+export const fetchProduct = (id) => async (dispatch) => {
+  const response = await fakestoreapi.get(`/products/${id}`);
+  dispatch({ type: ActionTypes.SELECTED_PRODUCTS, payload: response.data });
+};
 
 export const setProducts = (products) => {
   return {
