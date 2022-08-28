@@ -11,13 +11,13 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route exact path="/" element={<ProductListing/>}>
+          <Route exact path="/" element={<ProductListing/>}/>
             <Route
-              exact path="/product/:productId"
+              path="/product/:productId"
               element={<ProductDetail/>}
             />
-            <Route>404</Route>
-          </Route>
+
+          
         </Routes>
       </BrowserRouter>
     </div>
